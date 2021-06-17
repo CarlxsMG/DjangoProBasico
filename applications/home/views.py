@@ -9,5 +9,6 @@ class HomeView(TemplateView):
 
 class HomeListView(ListView):
     template_name = "home/home_list.html"
+    context_object_name = 'listNum'
     queryset = ['0','10','20','30']
     
