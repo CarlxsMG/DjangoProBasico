@@ -4,8 +4,8 @@ from django.db import models
 
 class HomeP(models.Model):
     titulo = models.CharField(max_length=60)
-    subtitutlo = models.CharField(max_length=50)
+    subtitulo = models.CharField(max_length=50)
     cantidad = models.IntegerField()
 
     def __str__(self):
-        return self.titulo
+        return self.titulo+' - '+self.subtitutlo
