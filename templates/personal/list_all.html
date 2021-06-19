@@ -1,3 +1,7 @@
 <h1>Lista todo personal</h1>
 
-{{ object_list }}
+<ul>
+    {% for empleado in object_list %}
+    <li>{{ empleado }}</li>
+    {% endfor %}
+</ul>

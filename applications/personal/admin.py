@@ -27,6 +27,7 @@ class EmpleadoAdmin(admin.ModelAdmin):
     list_filter = (
         'job',
         'habilidades',
+        'departamento',
     )
     #parametro solo para muchos a muchos
     filter_horizontal = ('habilidades',)
