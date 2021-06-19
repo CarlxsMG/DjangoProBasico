@@ -22,5 +22,10 @@ class employed(models.Model):
     departamento = models.ForeignKey(departamento, on_delete=models.CASCADE)
     #image = models.ImageField(upload_to=None, height_field=None, width_field=None)
 
+    class Meta:
+        verbose_name = 'Empleado'
+        verbose_name_plural = 'Empleados'
+        ordering = ['-name']
+
     def __str__(self):
         return str(self.id) + ' - ' + self.first_name + ' - ' + self.last_name
