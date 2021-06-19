@@ -1,7 +1,21 @@
 from django.db import models
 
+# import CKEditor
+from ckeditor.fields import RichTextField
+
 # import to foreignkey
 from applications.departamento.models import departamento
+
+class Habilidades(models.Model):
+    ''' Habilidades de los empleados '''
+    habilidad = models.CharField('Habilidad', max_length=50)
+
+    class Meta:
+        verbose_name = 'Habilidad'
+        verbose_name_plural = 'Habilidades empleados'
+
+    def __str__(self):
+        return str(self.id)+ ' - ' + self.habilidad
 
 # Create your models here.
 class employed(models.Model):
@@ -21,11 +35,13 @@ class employed(models.Model):
     job = models.CharField('trabajo', max_length=1, choices=JOB_CHOICES)
     departamento = models.ForeignKey(departamento, on_delete=models.CASCADE)
     #image = models.ImageField(upload_to=None, height_field=None, width_field=None)
+    habilidades = models.ManyToManyField(Habilidades)
+    vida_laboral = RichTextField()
 
     class Meta:
         verbose_name = 'Empleado'
         verbose_name_plural = 'Empleados'
-        ordering = ['-name']
+        ordering = ['-first_name']
 
     def __str__(self):
         return str(self.id) + ' - ' + self.first_name + ' - ' + self.last_name
