@@ -4,7 +4,8 @@ from .models import employed
 
 # Plantillas genericas html
 from django.views.generic import (
-    ListView
+    ListView,
+    DetailView
     )
 
 # Create your views here.
@@ -48,3 +49,12 @@ class ListHabilidadesEmplead(ListView):
         empleado = employed.objects.get(id=3)
         
         return empleado.habilidades.all()
+
+class EmpleadoDetailView(DetailView):
+    model = employed
+    template_name = 'personal/detail_emp.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(EmpleadoDetailView, self).get_context_data(**kwargs)
+        context['titulo'] = 'Empleado del mes'
+        return context

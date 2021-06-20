@@ -8,4 +8,5 @@ urlpatterns = [
     path('list-area/<shortName>/', views.ListByAreaEmpleados.as_view()),
     path('buscar-emp/', views.ListEmpleadosByKword.as_view()),
     path('listar-habilidades/', views.ListHabilidadesEmplead.as_view()),
+    path('ver-empleado/<pk>', views.EmpleadoDetailView.as_view()),
 ]
