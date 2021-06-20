@@ -3,9 +3,6 @@ from django.shortcuts import render
 
 from django.urls import reverse_lazy
 
-from django.views.generic.base import TemplateView
-from django.views.generic.edit import UpdateView
-
 from .models import employed
 
 # Plantillas genericas html
@@ -13,7 +10,9 @@ from django.views.generic import (
     ListView,
     DetailView,
     CreateView,
-    TemplateView
+    UpdateView,
+    TemplateView,
+    DeleteView
     )
 
 # Create your views here.
@@ -104,3 +103,9 @@ class EmpleadoUpdateView(UpdateView):
 
     def form_valid(self, form):
         return super(EmpleadoUpdateView, self).form_valid(form)
+
+class EmpleadoDeleteView(DeleteView):
+    model = employed
+    template_name = 'personal/delete.html'
+
+    success_url = reverse_lazy('personal_app:added')
