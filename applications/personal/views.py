@@ -10,6 +10,8 @@ from django.views.generic import (
 # Create your views here.
 class ListAllEmpleados(ListView):
     template_name = 'personal/list_all.html'
+    paginate_by = 2
+    ordering = 'first_name'
     model = employed
 
 class ListByAreaEmpleados(ListView):
@@ -37,3 +39,12 @@ class ListEmpleadosByKword(ListView):
         )
 
         return queryset
+
+class ListHabilidadesEmplead(ListView):
+    template_name = 'personal/habilidades.html'
+    context_object_name = 'habilidades'
+
+    def get_queryset(self):
+        empleado = employed.objects.get(id=3)
+        
+        return empleado.habilidades.all()
