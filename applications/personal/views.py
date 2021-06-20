@@ -14,6 +14,26 @@ class ListAllEmpleados(ListView):
 
 class ListByAreaEmpleados(ListView):
     template_name = 'personal/list_area.html'
-    queryset = employed.objects.filter(
-        departamento__shortName='Direccion'
-    )
+    
+
+    def get_queryset(self):
+        #Devuelve una lista
+        area = self.kwargs['shortName']
+        queryset = employed.objects.filter(
+            departamento__shortName=area
+        )
+        return queryset
+
+class ListEmpleadosByKword(ListView):
+    ''' lista empleado por palabra clave '''
+    template_name = 'personal/by_kword.html'
+    context_object_name = 'empleados'
+
+    def get_queryset(self):
+        clave = self.request.GET.get('kword',)
+
+        queryset = employed.objects.filter(
+            first_name=clave,
+        )
+
+        return queryset
