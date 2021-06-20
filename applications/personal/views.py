@@ -1,8 +1,10 @@
+from django.db import models
 from django.shortcuts import render
 
 from django.urls import reverse_lazy
 
 from django.views.generic.base import TemplateView
+from django.views.generic.edit import UpdateView
 
 from .models import employed
 
@@ -78,8 +80,27 @@ class EmpleadoCreateView(CreateView):
 
     def form_valid(self, form):
 
-        empleado = form.save()
+        empleado = form.save(commit=False) #commit para ahorrarse el guardado antes de la modificacion (optimizacion codigo)
         empleado.full_name = empleado.first_name + ' ' + empleado.last_name
         empleado.save()
 
         return super(EmpleadoCreateView, self).form_valid(form)
+
+class EmpleadoUpdateView(UpdateView):
+    model = employed
+    template_name = 'personal/update.html'
+
+    fields = ['first_name','last_name','job','departamento','habilidades',]
+
+    success_url = reverse_lazy('personal_app:added')
+
+    def post(self, request, *args, **kwargs) :
+        self.object = self.get_object()
+
+        #print(request.POST)
+        #print(request.POST['last_name'])
+
+        return super().post(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        return super(EmpleadoUpdateView, self).form_valid(form)
