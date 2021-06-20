@@ -4,6 +4,8 @@ from django.shortcuts import render
 # Import models
 from .models import HomeP
 
+from .forms import PruebaForm
+
 # Plantillas genericas html
 from django.views.generic import (
     TemplateView, 
@@ -27,4 +29,5 @@ class HomeListPrueba(ListView):
 class HomeCreateView(CreateView):
     model = HomeP
     template_name = "home/home_add.html"
-    fields = ['titulo', 'subtitulo', 'cantidad']
+    form_class = PruebaForm
+    success_url = '/'

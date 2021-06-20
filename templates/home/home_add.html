@@ -1,3 +1,7 @@
 <h2>Probando create view</h2>
 
-<div style="display: flex; flex-direction: column; width: 20%;">{{ form }}</div>
+<form method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit">Añadir</button>
+</form>
