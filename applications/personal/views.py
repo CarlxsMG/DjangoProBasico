@@ -1,11 +1,17 @@
 from django.shortcuts import render
 
+from django.urls import reverse_lazy
+
+from django.views.generic.base import TemplateView
+
 from .models import employed
 
 # Plantillas genericas html
 from django.views.generic import (
     ListView,
-    DetailView
+    DetailView,
+    CreateView,
+    TemplateView
     )
 
 # Create your views here.
@@ -58,3 +64,22 @@ class EmpleadoDetailView(DetailView):
         context = super(EmpleadoDetailView, self).get_context_data(**kwargs)
         context['titulo'] = 'Empleado del mes'
         return context
+
+class SuccessView(TemplateView):
+    template_name = 'personal/success.html'
+
+class EmpleadoCreateView(CreateView):
+    model = employed
+    template_name = 'personal/add.html'
+
+    fields = ['first_name','last_name','job','departamento','habilidades',]
+    #fields = ('__all__')
+    success_url = reverse_lazy('personal_app:added')
+
+    def form_valid(self, form):
+
+        empleado = form.save()
+        empleado.full_name = empleado.first_name + ' ' + empleado.last_name
+        empleado.save()
+
+        return super(EmpleadoCreateView, self).form_valid(form)
