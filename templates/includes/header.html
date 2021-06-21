@@ -1,0 +1,24 @@
+
+<header class="bg-red">
+    <div style="display: flex;">
+        <ul style=" width: 40%;">
+            <li>Empleados</li>
+            <li>
+                <a href="{% url 'personal_app:empleados_all' %}">Listar</a>
+            </li>
+            <li>
+                <a href="{% url 'departamento_app:listaDepartamento' %}">departamento</a>
+            </li>
+            <li>
+                <a href="{% url 'personal_app:empleados_admin' %}">administrar</a>
+            </li>
+            <li>
+                <a href="{% url 'departamento_app:nuevoDepartamento' %}">Nuevo departamento</a>
+            </li>
+        </ul>
+        <ul style=" width: 40%;">
+            <li><input type="search" placeholder="Search"></li>
+            <li><a href="{% url 'personal_app:empleado_add' %}">Registrar</a></li>
+        </ul>
+    </div>
+</header>

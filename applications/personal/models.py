@@ -35,7 +35,7 @@ class employed(models.Model):
     full_name = models.CharField('Nombre completos',max_length=170, blank=True)
     job = models.CharField('trabajo', max_length=1, choices=JOB_CHOICES)
     departamento = models.ForeignKey(departamento, on_delete=models.CASCADE)
-    #image = models.ImageField(upload_to=None, height_field=None, width_field=None)
+    image = models.ImageField(upload_to='empleado', blank=True, null=True)
     habilidades = models.ManyToManyField(Habilidades)
     vida_laboral = RichTextField()
 

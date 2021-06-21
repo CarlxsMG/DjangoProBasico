@@ -1,3 +1,12 @@
+{% extends 'base.html' %}
+
+
+{% block titulo %}
+    Nuevo dep
+{% endblock titulo %}
+    
+
+{% block content %}
 <h1>Nuevo departamento</h1>
 
 <form method="post">
@@ -8,3 +17,5 @@
     <p>{{form.departamento}} {{form.shorname}}</p>
     <button type="submit">Guardar</button>
 </form>
+{% endblock content %}
+    

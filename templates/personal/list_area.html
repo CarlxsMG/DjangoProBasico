@@ -1,7 +1,27 @@
-<h1>Area lista:</h1>
+{% extends 'base.html' %}
 
-<ul>
-    {% for i in object_list %}
-    <li>{{i}}</li>
-    {% endfor %}
-</ul>
+
+{% block titulo %}
+    Lista por departamento
+{% endblock titulo %}
+
+
+{% block content %}
+<h2>Area lista:</h1>
+
+    <ul style="display: flex;">
+        {% for empleado in empleados %}
+        <li style="margin: 1rem;"><p>{{ empleado }}</p>
+            <ul>
+                <li>{{empleado.first_name}}</li>
+                <li>{{empleado.last_name}}</li>
+                <li>{{empleado.departamento}}</li>
+                <li> <a href="{% url 'personal_app:empleado_detail' empleado.id %}">accion</a> </li>
+            </ul>
+        </li>
+        {% endfor %}
+    </ul>
+{% endblock content %}
+    
+    
+

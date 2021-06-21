@@ -14,6 +14,7 @@ class EmpleadoAdmin(admin.ModelAdmin):
         'departamento',
         'job',
         'full_name',
+        'image',
     )
 
     # funcion para darle valor a full_name

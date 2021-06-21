@@ -3,7 +3,11 @@ from django.shortcuts import render
 
 from django.urls import reverse_lazy
 
+# models
 from .models import employed
+
+# forms
+from .forms import EmpleadoForm
 
 # Plantillas genericas html
 from django.views.generic import (
@@ -15,17 +19,28 @@ from django.views.generic import (
     DeleteView
     )
 
+class InicioView(TemplateView):
+    template_name = 'home/inicio.html'
+
 # Create your views here.
 class ListAllEmpleados(ListView):
     template_name = 'personal/list_all.html'
     paginate_by = 2
     ordering = 'first_name'
-    model = employed
+    context_object_name = 'empleados_to'
+
+    def get_queryset(self):
+        #Devuelve una lista
+        clave = self.request.GET.get('kword', '')
+        queryset = employed.objects.filter(
+            first_name__icontains=clave,
+        )
+        return queryset
 
 class ListByAreaEmpleados(ListView):
     template_name = 'personal/list_area.html'
+    context_object_name = 'empleados'
     
-
     def get_queryset(self):
         #Devuelve una lista
         area = self.kwargs['shortName']
@@ -33,6 +48,14 @@ class ListByAreaEmpleados(ListView):
             departamento__shortName=area
         )
         return queryset
+
+class ListaEmpleadosAdmin(ListView):
+    template_name = 'personal/lista_empleados.html'
+    paginate_by = 6
+    ordering = 'first_name'
+    context_object_name = 'empleados'
+    model = employed
+
 
 class ListEmpleadosByKword(ListView):
     ''' lista empleado por palabra clave '''
@@ -73,9 +96,10 @@ class EmpleadoCreateView(CreateView):
     model = employed
     template_name = 'personal/add.html'
 
-    fields = ['first_name','last_name','job','departamento','habilidades',]
+    form_class = EmpleadoForm
+    #fields = ['first_name','last_name','job','departamento','habilidades','image',]
     #fields = ('__all__')
-    success_url = reverse_lazy('personal_app:added')
+    success_url = reverse_lazy('personal_app:empleados_admin')
 
     def form_valid(self, form):
 
@@ -89,9 +113,9 @@ class EmpleadoUpdateView(UpdateView):
     model = employed
     template_name = 'personal/update.html'
 
-    fields = ['first_name','last_name','job','departamento','habilidades',]
+    fields = ['first_name','last_name','job','departamento','habilidades','image',]
 
-    success_url = reverse_lazy('personal_app:added')
+    success_url = reverse_lazy('personal_app:empleados_admin')
 
     def post(self, request, *args, **kwargs) :
         self.object = self.get_object()
@@ -108,4 +132,4 @@ class EmpleadoDeleteView(DeleteView):
     model = employed
     template_name = 'personal/delete.html'
 
-    success_url = reverse_lazy('personal_app:added')
+    success_url = reverse_lazy('personal_app:empleados_admin')

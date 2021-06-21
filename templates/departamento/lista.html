@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+
+{% block titulo %}
+    Lista departamentos
+{% endblock titulo %}
+
+
+{% block content %}
+    <div>
+        <div> <h1>Lista departamentos</h1></div>
+        <div>
+            <table>
+                <tbody>
+                    
+                    {% for dep in departamentos %}
+
+                    <tr>
+                        <td>{{dep.name}}</td>
+                        <td>{{dep.shortName}}</td>
+                        <td><a href="{% url 'personal_app:empleadosArea' dep.shortName %}">ver empleados</a></td>
+                    </tr>
+                        
+                    {% endfor %}
+                        
+                </tbody>                
+            </table>
+        </div>
+    </div>
+{% endblock content %}
+    
+    

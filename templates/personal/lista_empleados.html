@@ -2,27 +2,23 @@
 
 
 {% block title %}
-    Listar all
+    Listar admin
 {% endblock title %}
     
 
 {% block content %}
 <div style="padding: 10%;">
     <h1>Lista todo personal</h1>
-    <form method="GET">
-        {% csrf_token %}
-        <input type="text" placeholder="Buscar emp" id="kword" name="kword">
-        <button type="submit" >Buscar</button>
-    </form>
     
     <ul style="display: flex;">
-        {% for empleado in empleados_to %}
+        {% for empleado in empleados %}
         <li style="margin: 1rem;"><p>{{ empleado }}</p>
             <ul>
                 <li>{{empleado.first_name}}</li>
                 <li>{{empleado.last_name}}</li>
                 <li>{{empleado.departamento}}</li>
-                <li> <a href="{% url 'personal_app:empleado_detail' empleado.id %}">accion</a> </li>
+                <li> <a href="{% url 'personal_app:modificar' empleado.id %}">editar</a> </li>
+                <li> <a href="{% url 'personal_app:borrar' empleado.id %}">eliminar</a> </li>
             </ul>
         </li>
         {% endfor %}

@@ -1,11 +1,31 @@
+{% extends 'base.html' %}
+
+
+{% block titulo %}
+{{employed.full_name}}
+{% endblock titulo %}
+    
+
+{% block content %}
 <h1>Detallle de empleado {{titulo}}</h1>
 {{ employed }}
 
 <h3>todos los datos</h3>
 
 <p>{{employed.first_name}}</p>
-<p>{{employed.departamento}}</p>
+<p>{{employed.departamento.shortName}}</p>
 
+{% if employed.image %}
+<img src="{{employed.image.url}}" alt="">
+{% else%}
+<p>No tiene imagen</p>
+{% endif %}
+    
+
+<p>Habilidades:</p>
 {% for i in employed.habilidades.all %}
-<p>{{i}}</p>
+<p>{{i.habilidad}}</p>
 {% endfor %}
+{% endblock content %}
+    
+
